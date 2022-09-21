@@ -1,0 +1,11 @@
+.counter{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+.add, .rest{
+    width: 20px;
+    margin-bottom: 0.5rem;
+    background-color: rgb(230, 197, 89);
+    border: 1px solid chocolate;
+}

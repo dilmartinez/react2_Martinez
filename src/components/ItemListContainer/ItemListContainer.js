@@ -2,6 +2,8 @@ import data from "../Data";
 import { useEffect, useState } from "react";
 import ItemList from "../ItemList/ItemList"
 import { useParams } from "react-router-dom";
+import '../ItemListContainer/ItemListContainer.css'
+
 
 const ItemListContainer = ({ }) => {
 

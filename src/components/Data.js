@@ -1,12 +1,12 @@
 const data = [
 
-    {id: '1', nombre: "Churros Comunes", tipo: "Churros", cantidad: '5' , desc: "Churros recién elaborados sin relleno, pasados por azúcar, canela o sin nada, presentación de 3 unidades", precio: 240, img:'https://i.pinimg.com/236x/eb/21/f0/eb21f090fe0c88673add1d2e746b8787.jpg'},
+    {id: '1', nombre: "Churros Comunes", tipo: "Churros", cantidad: '5' , desc: "Churros recién elaborados sin relleno, pasados por azúcar, canela o sin nada, presentación de 3 unidades", precio: '240', img:'https://i.pinimg.com/236x/eb/21/f0/eb21f090fe0c88673add1d2e746b8787.jpg'},
 
-    {id: '2', nombre: "Churros Rellenos", tipo: "Churros", cantidad: '6', desc: "Churros recién elaborados rellenos de nutella, presentación de 3 unidades", precio: 270, img: 'https://unareceta.com/wp-content/uploads/2016/08/receta-churros-rellenos-640x454.jpg'},
+    {id: '2', nombre: "Churros Rellenos", tipo: "Churros", cantidad: '6', desc: "Churros recién elaborados rellenos de nutella, presentación de 3 unidades", precio: '270', img: 'https://unareceta.com/wp-content/uploads/2016/08/receta-churros-rellenos-640x454.jpg'},
 
-    {id: '4', nombre: "Churritos Bañados ", tipo: "Churros", cantidad: '7', desc: "Churritos delgados bañados sin relleno, elaborados al instante que los pedís, pasados por azúcar, canela o sin nada, presentación de 5 unidades", precio: 550, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbVIuomaSC-uJDoZqBjg5gGAMQ2lQLGQXBow&usqp=CAU'},
+    {id: '4', nombre: "Churritos Bañados ", tipo: "Churros", cantidad: '7', desc: "Churritos delgados bañados sin relleno, elaborados al instante que los pedís, pasados por azúcar, canela o sin nada, presentación de 5 unidades", precio: '550', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbVIuomaSC-uJDoZqBjg5gGAMQ2lQLGQXBow&usqp=CAU'},
 
-    {id: '5', nombre: "Cookie Paraiso", tipo: "Cookies", cantidad: '5', desc: "Deliciosa cookie de chocolate, con almendras, chips y botones de chocolate, y trozos de chocolate al 70% de cacao, recién horneada, dorada por fuera pero húmeda y esponjosa por dentro, 150 gramos de mucho sabor", precio: 340, img: 'https://i.pinimg.com/236x/ab/95/fb/ab95fba4dabd16e4f77adf300adef004.jpg'},
+    {id: '5', nombre: "Cookie Paraiso", tipo: "Cookies", cantidad: '5', desc: "Deliciosa cookie de chocolate, con almendras, chips y botones de chocolate, y trozos de chocolate al 70% de cacao, recién horneada, dorada por fuera pero húmeda y esponjosa por dentro, 150 gramos de mucho sabor", precio: '340', img: 'https://i.pinimg.com/236x/ab/95/fb/ab95fba4dabd16e4f77adf300adef004.jpg'},
 
     {id: '6', nombre: "Mrs Rabbit", tipo: "Cookies", cantidad: '6', desc: "Deliciosa cookie de zanahoria, nuez,avena, canela rellena de cheescake cream,  recién horneada, dorada por fuera pero húmeda y esponjosa por dentro, 150 gramos de mucho sabor", precio: 340, img: 'https://i.pinimg.com/236x/34/81/29/3481291782ba43a1fa54ab6381815984.jpg'},
 

@@ -1,6 +1,7 @@
 import logotipo from '../img/logo.jpeg'
 import CartWidget from '../CartWidget/CartWidget';
 import {NavLink} from 'react-router-dom';
+import '../NavBar/NavBar.css'
 
 const NavBar = () => {
     return (
@@ -20,7 +21,7 @@ const NavBar = () => {
                     <NavLink to='/tipo/Cookies'>Cookies</NavLink>
                 </li>
                 <li>
-                    <NavLink className='contador' to='/cart'><CartWidget /></NavLink>
+                    <NavLink to='/cart'><CartWidget /></NavLink>
                 </li>
                 
             </div>

@@ -1,4 +1,20 @@
+.cart-icono{
+    font-size: 2rem;
+    cursor: pointer;
+}
+
 .cart{
     width: 20px;
     height: 20px;
+}
+
+.contador{
+    padding: 0 3px;
+    background-color:white;
+    color: rgb(212, 16, 16);
+    font-weight: bolder;
+    border-radius: 5px;
+    position: relative;
+    top: -15px;
+    
 }

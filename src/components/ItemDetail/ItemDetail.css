@@ -78,14 +78,14 @@ button{
     border-radius: 5px;
     color: rgb(66, 37, 37);
     margin-bottom: 1rem;
-    width: 100%;
+    width: 250px;
 }
 
 .volver{
-    text-decoration: none;
+    
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-bottom: 1rem;
-    color: rgb(119, 29, 29);
+    
 }
 .stock {
     text-decoration: none;
@@ -95,4 +95,9 @@ button{
     margin-bottom: 1rem;
     text-align: center;
     color: grey;
+}
+.terminar-compra{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 1rem;
+    color: rgb(119, 29, 29);
 }

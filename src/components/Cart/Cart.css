@@ -1,0 +1,46 @@
+.productos-cart{
+   color: chocolate;
+   border-bottom: 1px #4e310b;
+   max-width: 700px;
+   margin: 1rem auto;
+}
+
+.stylo-cart{
+    color: #4e310b;
+    padding: 10px 20px;
+    margin: 30px 30px;
+}
+
+.nombre-producto-cart{
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.img-producto-cart{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 0.5rem;
+
+}
+
+.eliminar-item-cart{
+    background-color: rgb(230, 89, 89);
+    border: 1px solid rgb(210, 30, 30);
+    border-radius: 5px;
+    color: rgb(233, 217, 217);
+    margin-bottom: 1rem;
+    width: 150px;
+    
+}
+
+.monto-pagar{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: rgb(18, 82, 18);
+    background-color: rgb(141, 247, 141);
+    text-align: end;
+}

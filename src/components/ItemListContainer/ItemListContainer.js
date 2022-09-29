@@ -1,33 +1,31 @@
-import data from "../Data";
 import { useEffect, useState } from "react";
 import ItemList from "../ItemList/ItemList"
 import { useParams } from "react-router-dom";
-import '../ItemListContainer/ItemListContainer.css'
+import '../ItemListContainer/ItemListContainer.css';
+import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore';
 
-
-const ItemListContainer = ({ }) => {
-
+ export const ItemListContainer = () => {
   const [prodList, setProdList] = useState([]);
 
   const { tipoId } = useParams();
+  console.log(tipoId)
 
   useEffect(() => {
-    const getProdList = new Promise(resolve => {
-      setTimeout(() => {
-        resolve(data)
-      }, 2000);
-    });
+    const querydb = getFirestore();
+    const queryCollection = collection(querydb, 'data');
     if (tipoId) {
-      getProdList.then(response => setProdList(response.filter(churros => churros.tipo === tipoId)))
+      const queryFilter = query(queryCollection, where('tipo', '==', tipoId))
+      getDocs(queryFilter)
+        .then(res => setProdList(res.docs.map(product => ({ id:product.id, ...product.data()}))))
     } else {
-      getProdList.then(response => setProdList(response));
+      getDocs(queryCollection)
+      .then(res => setProdList(res.docs.map(product => ({id:product.id, ...product.data()}))))
     }
   }, [tipoId])
 
-  
+
   return (
     <>
-      
       <ItemList lista={prodList} />
     </>
   )

@@ -1,28 +1,20 @@
 import ItemDetail from "../ItemDetail/ItemDetail";
 import { useState, useEffect } from "react";
-import data from "../Data";
+//import data from "../Data";
 import { useParams } from "react-router-dom";
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 
 const ItemDetailContainer = () => {
-
   const [prodList, setProdList] = useState({});
-
-  const { detalleId} = useParams();
+  const { detalleId } = useParams();
 
   useEffect(() => {
-    const getProdList = new Promise(resolve => {
-      setTimeout(() => {
-        resolve(data)
-      }, 2000);
-    });
-    const dataFiltrada = data.filter((prodList) => prodList.id === detalleId);
-    //console.log(dataFiltrada)
-    setProdList(...dataFiltrada)
-    
-  }, []);
-
-  
+    const querydb = getFirestore();
+    const queryDoc = doc(querydb, 'data', detalleId);
+    getDoc(queryDoc)
+      .then(res => setProdList({id:res.id, ...res.data()}))
+    }, [detalleId]);
 
   return (
     <>
@@ -30,5 +22,4 @@ const ItemDetailContainer = () => {
     </>
   );
 }
-
 export default ItemDetailContainer;

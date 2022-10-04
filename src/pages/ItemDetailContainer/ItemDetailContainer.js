@@ -1,4 +1,4 @@
-import ItemDetail from "../ItemDetail/ItemDetail";
+import ItemDetail from "../../components/ItemDetail/ItemDetail";
 import { useState, useEffect } from "react";
 //import data from "../Data";
 import { useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ const ItemDetailContainer = () => {
 
   useEffect(() => {
     const querydb = getFirestore();
-    const queryDoc = doc(querydb, 'data', detalleId);
+    const queryDoc = doc(querydb, 'items', detalleId);
     getDoc(queryDoc)
       .then(res => setProdList({id:res.id, ...res.data()}))
     }, [detalleId]);

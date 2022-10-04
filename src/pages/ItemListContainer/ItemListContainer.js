@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ItemList from "../ItemList/ItemList"
+import ItemList from "../../components/ItemList/ItemList"
 import { useParams } from "react-router-dom";
 import '../ItemListContainer/ItemListContainer.css';
 import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore';
@@ -12,7 +12,7 @@ import { getFirestore, getDocs, collection, query, where } from 'firebase/firest
 
   useEffect(() => {
     const querydb = getFirestore();
-    const queryCollection = collection(querydb, 'data');
+    const queryCollection = collection(querydb, 'items');
     if (tipoId) {
       const queryFilter = query(queryCollection, where('tipo', '==', tipoId))
       getDocs(queryFilter)

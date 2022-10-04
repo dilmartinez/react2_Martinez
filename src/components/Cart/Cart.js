@@ -1,9 +1,37 @@
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/CartProvider";
 import '../Cart/Cart.css';
+import moment from "moment/moment";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
 
 const Cart = () => {
     const { cart, addToCart, removeProduct, totalPrecio } = useCartContext();
+
+    const createOrder = () => {
+        const querydb = getFirestore();
+        const order = {
+            buyer: {
+                name: 'Juan',
+                phone: '123456789',
+                email: 'test@test.com'
+            },
+            data: cart,
+            total: cart.reduce((valorPasado, valorActual) => valorPasado + (valorActual.precio * valorActual.cantidad), 0),
+            date: moment().format(),
+        };
+        const query = collection(querydb, 'orders');
+        addDoc(query, order)
+            .then(({ id }) => {
+                console.log(id);
+                alert('Transacción exitosa, gracias por comprar');
+            })
+            .catch(() =>
+                alert('Tu compra no pudo ser procesada, volvé a intentarlo')
+            );
+    };
+
+
+
     console.log('carrito', cart)
     if (cart.length === 0) {
         return (
@@ -35,9 +63,11 @@ const Cart = () => {
                 <div className="monto-pagar">Monto a abonar: ${totalPrecio()}</div>
                 <hr />
             </div>
+            <div>
+                <button className="order" onClick={createOrder}>Procesar Compra</button>
+            </div>
 
         </>
-
     );
 
 };

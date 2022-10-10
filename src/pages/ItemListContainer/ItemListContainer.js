@@ -4,35 +4,38 @@ import { useParams } from "react-router-dom";
 import '../ItemListContainer/ItemListContainer.css';
 import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore';
 
- export const ItemListContainer = () => {
+export const ItemListContainer = () => {
   const [prodList, setProdList] = useState([]);
 
-  const { tipoId } = useParams();
-  console.log(tipoId)
+  const { tipoName } = useParams();
+  console.log(tipoName)
 
-  const getProducts = () =>{
+  const getProducts = () => {
+    //inicialización de la base de datos
     const querydb = getFirestore();
-    const querybase = collection(querydb, 'items');
-    const queryCollection = tipoId ? query(querybase, where('tipo', '==', tipoId)) : querybase;
-   
-      getDocs(queryCollection).then((res) => {
-        const data = res.docs.map(product => {
-          console.log(product.data());
-          return {id:product.id, ...product.data()}
-        });
-        setProdList(data);
-  });
-};
+
+    //Inicio de colección, indicando cual deseo traer de la base de datos
+    const queryBase = collection(querydb, 'items');
+    const querySnapshot = tipoName ? query(queryBase, where('tipo', '==', tipoName)) : queryBase;
+
+    getDocs(querySnapshot).then(response => {
+      const data = response.docs.map(product => {
+        console.log(product.data());
+        return { id: product.id, ...product.data() }
+      });
+      setProdList(data);
+    }).catch(error => { console.log(error) })
+  };
   useEffect(() => {
     getProducts();
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tipoId]);
+  }, [tipoName]);
 
   return (
     <>
       <ItemList lista={prodList} />
     </>
-  )
+  );
 };
 
 export default ItemListContainer;

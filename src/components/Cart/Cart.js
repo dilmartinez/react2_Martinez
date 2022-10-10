@@ -1,36 +1,52 @@
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../context/CartProvider";
+import { useState } from "react";
 import '../Cart/Cart.css';
 import moment from "moment/moment";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 
 const Cart = () => {
-    const { cart, addToCart, removeProduct, totalPrecio } = useCartContext();
+    const { cart, removeProduct, totalPrecio, clearCart } = useCartContext();
+    const [order, setOrder] = useState({
+        buyer: {
+            name: '',
+            phone: '0',
+            
+            email: '',
+        },
+        items: cart,
+        total: cart.reduce((acc, item) => acc + item.precio * item.cantidad, 0),
+        date: moment().format(),
+    });
+
+    const querydb = getFirestore();
 
     const createOrder = () => {
-        const querydb = getFirestore();
-        const order = {
-            buyer: {
-                name: 'Juan',
-                phone: '123456789',
-                email: 'test@test.com'
-            },
-            data: cart,
-            total: cart.reduce((valorPasado, valorActual) => valorPasado + (valorActual.precio * valorActual.cantidad), 0),
-            date: moment().format(),
-        };
         const query = collection(querydb, 'orders');
         addDoc(query, order)
             .then(({ id }) => {
                 console.log(id);
-                alert('Transacción exitosa, gracias por comprar');
+                //updateStockProducts(cart)
+                alert('Transacción exitosa, ¡gracias por comprar!');
+                clearCart()
             })
             .catch(() =>
                 alert('Tu compra no pudo ser procesada, volvé a intentarlo')
             );
     };
 
+    //const updateStockProducts = (products) =>
 
+    const handleInputChange = (e) => {
+        setOrder({
+           ...order,
+           
+           buyer: {
+            ...order.buyer,
+            [e.target.name]:e.target.value,
+           },
+        });
+    };
 
     console.log('carrito', cart)
     if (cart.length === 0) {
@@ -63,6 +79,21 @@ const Cart = () => {
                 <div className="monto-pagar">Monto a abonar: ${totalPrecio()}</div>
                 <hr />
             </div>
+            <div className="form">
+                <div>
+                    <label>Nombre</label>
+                    <input name="name" type="text" value={order.buyer.name} onChange={handleInputChange} />
+                </div>
+                <div>
+                    <label>Telefono</label>
+                    <input name="phone" type="number" value={order.buyer.phone} onChange={handleInputChange} />
+                </div>
+                <div>
+                    <label>Correo</label>
+                    <input name="email" type="text" value={order.buyer.email} onChange={handleInputChange} />
+                </div>
+            </div>
+
             <div>
                 <button className="order" onClick={createOrder}>Procesar Compra</button>
             </div>

@@ -12,16 +12,12 @@ export const CartProvider = ({ children }) => {
     const removeProduct = (id) => setCart(cart.filter(info => info.id !== id));
 
     const addToCart = (info, cantidad) => {
-        let newCart;
-        let product = cart.find(product => product.id === info.id);
-        if (product) {
-            product.cantidad += cantidad;
-            newCart = [...cart];
-        } else {
-            product = { ...info, cantidad: cantidad };
-            newCart = [...cart, product];
+        if (isInCart(info.id)) {
+            alert('producto ya esta en el carrito');
+        }else {
+            setCart([...cart, {...info, cantidad}]);
         }
-        setCart(newCart);
+        console.log('cart', [...cart, {...info, cantidad}]);
     }
     
     const totalPrecio = () => {

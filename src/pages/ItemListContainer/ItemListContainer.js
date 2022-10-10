@@ -10,19 +10,23 @@ import { getFirestore, getDocs, collection, query, where } from 'firebase/firest
   const { tipoId } = useParams();
   console.log(tipoId)
 
-  useEffect(() => {
+  const getProducts = () =>{
     const querydb = getFirestore();
-    const queryCollection = collection(querydb, 'items');
-    if (tipoId) {
-      const queryFilter = query(queryCollection, where('tipo', '==', tipoId))
-      getDocs(queryFilter)
-        .then(res => setProdList(res.docs.map(product => ({ id:product.id, ...product.data()}))))
-    } else {
-      getDocs(queryCollection)
-      .then(res => setProdList(res.docs.map(product => ({id:product.id, ...product.data()}))))
-    }
-  }, [tipoId])
-
+    const querybase = collection(querydb, 'items');
+    const queryCollection = tipoId ? query(querybase, where('tipo', '==', tipoId)) : querybase;
+   
+      getDocs(queryCollection).then((res) => {
+        const data = res.docs.map(product => {
+          console.log(product.data());
+          return {id:product.id, ...product.data()}
+        });
+        setProdList(data);
+  });
+};
+  useEffect(() => {
+    getProducts();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tipoId]);
 
   return (
     <>

@@ -25,11 +25,11 @@ const ItemDetail = ({ info }) => {
           <div className="desc-det">{info.desc}</div>
           <div className="precio-producto-det">Precio {info.precio} $</div>
           {
-            goTocart ? 'Producto agregado ': <Counter stock={info.cantidad} onAdd={onAdd} count={count} setCount={setCount} />
+            goTocart ? 'Producto agregado ': <Counter stock={info.stock} onAdd={onAdd} count={count} setCount={setCount} />
           }
           <button onClick={() => onAdd(count)}> Agregar al carrito</button>
           <div>
-          <div className="stock">Unidades disponibles {info.cantidad}</div>
+          <div className="stock">Unidades disponibles {info.stock}</div>
             <Link className='volver' to='/'>Volver</Link><span></span><Link className='terminar-compra' to='/Cart'>Terminar mi compra</Link></div>
 
         </div>

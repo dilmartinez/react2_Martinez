@@ -12,7 +12,7 @@ const NavBar = () => {
             </div>
             <div className='navBar'>
                 <li>
-                    <NavLink to='/'>Inicio</NavLink>
+                    <NavLink to={'/'}>Inicio</NavLink>
                 </li>
                 <li>
                     <NavLink to={'/tipo/Churros'}>Churros</NavLink>
@@ -21,7 +21,7 @@ const NavBar = () => {
                     <NavLink to={'/tipo/Cookies'}>Cookies</NavLink>
                 </li>
                 <li>
-                    <NavLink to='/cart'><CartWidget /></NavLink>
+                    <NavLink to={'/cart'}><CartWidget /></NavLink>
                 </li>
                 
             </div>

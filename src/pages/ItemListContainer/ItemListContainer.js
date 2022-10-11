@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import '../ItemListContainer/ItemListContainer.css';
 import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore';
 
-export const ItemListContainer = () => {
+const ItemListContainer = () => {
   const [prodList, setProdList] = useState([]);
 
   const { tipoName } = useParams();
@@ -20,12 +20,12 @@ export const ItemListContainer = () => {
 
     getDocs(querySnapshot).then(response => {
       const data = response.docs.map(product => {
-        console.log(product.data());
         return { id: product.id, ...product.data() }
       });
       setProdList(data);
     }).catch(error => { console.log(error) })
   };
+  
   useEffect(() => {
     getProducts();
     //eslint-disable-next-line react-hooks/exhaustive-deps

@@ -3,20 +3,20 @@ import { useCartContext } from "../../context/CartProvider";
 import { useState } from "react";
 import '../Cart/Cart.css';
 import moment from "moment/moment";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { collection, addDoc, getFirestore, doc, updateDoc } from "firebase/firestore";
 
 const Cart = () => {
     const { cart, removeProduct, totalPrecio, clearCart } = useCartContext();
     const [order, setOrder] = useState({
         buyer: {
             name: '',
+            apellido:'',
             phone: '0',
-            
             email: '',
         },
         items: cart,
         total: cart.reduce((acc, item) => acc + item.precio * item.cantidad, 0),
-        date: moment().format(),
+        date: moment().format('DD/MM/YYYY, h:mm:ss a'),
     });
 
     const querydb = getFirestore();
@@ -26,7 +26,7 @@ const Cart = () => {
         addDoc(query, order)
             .then(({ id }) => {
                 console.log(id);
-                //updateStockProducts(cart)
+                updateStockProducts()
                 alert('Transacción exitosa, ¡gracias por comprar!');
                 clearCart()
             })
@@ -35,7 +35,22 @@ const Cart = () => {
             );
     };
 
-    //const updateStockProducts = (products) =>
+    const updateStockProducts = () => {
+        cart.forEach((item) => {
+            const queryUpdate = doc(querydb, 'items', item.id)
+            updateDoc(queryUpdate, {
+                tipo: item.tipo,
+                description: item.desc,
+                image: item.img,
+                precio: item.precio,
+                nombre: item.nombre,
+                stock: item.stock - item.cantidad
+            }).then(() => {
+                console.log('Stock actualizado');
+            }
+            ).catch((error)=> alert('no se actualizo el stock', error))
+        });
+    }
 
     const handleInputChange = (e) => {
         setOrder({
@@ -66,7 +81,7 @@ const Cart = () => {
                         <div>
                             <img src={info.img} className="img-producto-cart" alt={info.nombre} />
                             <h3>{info.nombre}</h3>
-                            <p>Cantidad: {info.cantidad}</p>
+                            <p>Cantidad: {info.cant}</p>
                             <p>Precio: $ {info.precio} </p>
                             <p>Subtotal: ${info.cantidad * info.precio}</p>
                             <button className="eliminar-item-cart" onClick={() => removeProduct(info.id)}>Eliminar Producto</button>
@@ -83,6 +98,10 @@ const Cart = () => {
                 <div>
                     <label>Nombre</label>
                     <input name="name" type="text" value={order.buyer.name} onChange={handleInputChange} />
+                </div>
+                <div>
+                    <label>Apellido</label>
+                    <input name="apellido" type="text" value={order.buyer.apellido} onChange={handleInputChange} />
                 </div>
                 <div>
                     <label>Telefono</label>

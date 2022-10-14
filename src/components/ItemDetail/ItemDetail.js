@@ -8,12 +8,12 @@ import { useCartContext } from '../../context/CartProvider';
 const ItemDetail = ({ info }) => {
   const [count, setCount] = useState(1);
 
-  const [goTocart, setGoTocard] = useState(false)
+  //const [goTocart, setGoTocard] = useState(false)
   const { addToCart } = useCartContext();
 
-  const onAdd = (goTocart) => {
-    setGoTocard(goTocart);
-    addToCart(info, goTocart)
+  const onAdd = (info) => {
+    //setGoTocard(goTocart);
+    addToCart(info, count)
   }
 
   return (
@@ -24,10 +24,10 @@ const ItemDetail = ({ info }) => {
           <div className="nombre-producto-det">{info.nombre}</div>
           <div className="desc-det">{info.desc}</div>
           <div className="precio-producto-det">Precio {info.precio} $</div>
-          {
-            goTocart ? 'Producto agregado ': <Counter stock={info.stock} onAdd={onAdd} count={count} setCount={setCount} />
-          }
-          <button onClick={() => onAdd(count)}> Agregar al carrito</button>
+          
+          <Counter stock={info.stock} count={count} setCount={setCount} />
+          
+          <button onClick={() => {onAdd(info); alert('producto agregado al carrito')}}> Agregar al carrito</button>
           <div>
           <div className="stock">Unidades disponibles {info.stock}</div>
             <Link className='volver' to='/'>Volver</Link><span></span><Link className='terminar-compra' to='/Cart'>Terminar mi compra</Link></div>

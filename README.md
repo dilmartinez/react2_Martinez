@@ -7,6 +7,10 @@ Maria Martinez Diaz.
 
 ## Demo tienda
 
+
+https://user-images.githubusercontent.com/104924867/196786506-5bc4e432-c147-416f-bbff-3c16ca36ae48.mp4
+
+
 ## Available Scripts
 
 In the project directory, you can run:

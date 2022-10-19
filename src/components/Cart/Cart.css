@@ -49,18 +49,9 @@
     width: 800px;
 }
 
-.order{
-    margin-left: 50px;
-    background-color: rgb(168, 236, 150);
-    border-color:rgb(168, 236, 150);;
-}
-
 .form{
-    gap: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 50px;
-    width: 800px;
+    width: 500px;
+    margin: 55px;
 }
 
 label{
@@ -73,9 +64,10 @@ input{
     background: #e7cead;
     height: 45px;
     line-height: 45px;
-    /*padding: 0 40px 0 10px;*/
     transition: .3s ease all;
+    padding: 0 40px 0 10px;
     border: 3px solid transparent;
+    margin-top: 10px;
 }
 
 h3{
@@ -84,10 +76,40 @@ h3{
     font-weight: 800;
     color: rgb(63, 41, 7);
     text-align: start;
-    margin: 50px;
+    margin-left: 55px;
 }
 
-.error{
-    font-weight: bold;
-    color: #c70c0c;
-}
+input[type="submit"] {
+    background-color: rgb(113, 238, 79);
+    border-color:rgb(168, 236, 150);
+    color: #ffff;
+    text-transform: uppercase;
+    border: none;
+  width: 560px;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: 5px;
+    margin-top: 20px;
+    
+  }
+  
+  input[type="submit"]:hover {
+    cursor: pointer;
+    background: #295c00;
+  }
+  
+  input[type="submit"]:active {
+    transition: 0.3s all;
+    transform: translateY(3px);
+    border: 1px solid transparent;
+    opacity: 0.8;
+  }
+  
+  input:disabled {
+    opacity: 0.4;
+  }
+  
+
+ 
+  
+  

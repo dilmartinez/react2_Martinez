@@ -15,10 +15,10 @@ const NavBar = () => {
                     <NavLink to={'/'}>Inicio</NavLink>
                 </li>
                 <li>
-                    <NavLink to={'/tipo/Churros'}>Churros</NavLink>
+                    <NavLink to={'/tipo/churros'}>Churros</NavLink>
                 </li>
                 <li>
-                    <NavLink to={'/tipo/Cookies'}>Cookies</NavLink>
+                    <NavLink to={'/tipo/cookies'}>Cookies</NavLink>
                 </li>
                 <li>
                     <NavLink to={'/cart'}><CartWidget /></NavLink>

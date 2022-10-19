@@ -7,6 +7,7 @@ import { collection, addDoc, getFirestore, doc, updateDoc } from "firebase/fires
 
 const Cart = () => {
     const { cart, removeProduct, totalPrecio, clearCart } = useCartContext();
+    const [botonActivo, setBotonActivo] = useState(false);
     const [order, setOrder] = useState({
         buyer: {
             name: '',
@@ -19,8 +20,6 @@ const Cart = () => {
         date: moment().format('DD/MM/YYYY, h:mm:ss a'),
     });
 
-    const [errors, setError] = useState(0);
-
     const querydb = getFirestore();
 
     const createOrder = () => {
@@ -29,7 +28,7 @@ const Cart = () => {
             .then(({ id }) => {
                 console.log(id);
                 updateStockProducts()
-                alert('Transacción exitosa, ¡gracias por comprar! SU NÚMERO  DE ORDEN ES : ' + id);
+                alert('Transacción exitosa, ¡gracias por tu compra! TU NÚMERO  DE ORDEN ES : ' + id);
                 clearCart()
             })
             .catch(() =>
@@ -54,25 +53,20 @@ const Cart = () => {
         });
     }
 
-    const handleInputChange = (e) => {
-        const value = e.target.value;
-        console.log(value
-            )
-        const onliLet = /^[a-zA-Z\s]*$/g.test(value);
-        const minValue = value.length > 1;
-        const maxValue=value.length<12;
-        const maxphone=value.length<14
+    const [inputescrito, setInputEscrito] = useState([]);
 
-        if (onliLet === false) {
-            setError(1);
-        } else if (!minValue) {
-            setError(2)
-        }else if (!maxValue){
-            setError(3);
-        }
-        if (onliLet === true && minValue) {
-            setError(0);
-        }
+    const handleInputChange = (e) => {
+        const val = e.target.value;
+        console.log(val)
+
+        var auxiliar = null;
+
+        (inputescrito.includes(val)) ? auxiliar = inputescrito.filter(element => element === val) : auxiliar = inputescrito.concat(e.target.value)
+
+        setInputEscrito(auxiliar);
+
+        (auxiliar.length === 4) ? setBotonActivo(true) : setBotonActivo(false)
+
         setOrder({
             ...order,
 
@@ -81,53 +75,8 @@ const Cart = () => {
                 [e.target.name]: e.target.value,
             },
         });
-
     };
 
-    const handleBlur = (e) => {
-        handleInputChange(e);
-
-    };
-
-    /* const validateForm = (order) => {
-         let errors = {}
-        
-         let regexName = /^[a-zA-Z\s]*$/g;
-         let regexEmail =  /^[-\w.%+]{1,64}@(?:[A-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
- 
-         if (!order.name) {
-             errors.name = 'El campo NOMBRE es requerido';
-         } else if (!regexName(order.name.test())) {
-             errors.name = 'El campo nombre sólo acepta letras y espacios en blanco';
-         }
- 
-         if (!order.apellido) {
-             errors.apellido = 'El campo APELLIDO es requerido';
-         }else if (!regexName.test(order.apellido)) {
-             errors.apellido = 'El campo apellido sólo acepta letras y espacios en blanco';
-         };
- 
-         if (!order.email) {
-             errors.email = 'El campo Email es requerido';
-         }else if (!regexEmail.test(order.email)) {
-             errors.email = 'El email es incorrecto';
-         };
- 
-         if (!order.email) {
-             errors.email = 'El campo Email es requerido';
-         }else if (!regexEmail.test(order.email)) {
-             errors.email = 'El email es incorrecto';
-         };
- 
-         if (!order.phone) {
-             errors.phone = 'El campo teléfono es requerido';
-         }
-         
- 
-         return errors
-     }*/
-
-    console.log('carrito', cart)
     if (cart.length === 0) {
         return (
             <>
@@ -151,58 +100,31 @@ const Cart = () => {
                             <button className="eliminar-item-cart" onClick={() => removeProduct(info.id)}>Eliminar Producto</button>
                             <hr />
                         </div>
-
                     </div>
                 ))}
                 <div className="monto-pagar">Monto a abonar: ${totalPrecio()}</div>
             </div>
             <div>
-                <h3>Completá los siguientes datos para continuar:</h3>
+                <h3>Para avanzar con tu compra por favor llena TODOS los campos, gracias:</h3>
 
                 <div className="form">
                     <div>
                         <label>Nombre</label>
-                        <div>
-                            <input name="name" type="text" value={order.buyer.name} onChange={handleInputChange} onBlur={handleBlur} required />
-                            {(errors === 1) && (
-                                <p className="error">El nombre solo puede tener letras</p>)}
-                            {(errors === '') && (
-                                <p className="error">Debes colocar un nombre, el campo no puede estar vacio</p>)}
-
-                        </div>
+                        <input name="name" type="text" value={order.buyer.name} onChange={handleInputChange} required={true} placeholder='Este campo no puede contener números' />    
                     </div>
                     <div>
                         <label>Apellido</label>
+                        <input name="apellido" type="text" value={order.buyer.apellido} onChange={handleInputChange} required={true} placeholder='Este campo no puede contener números' />
+                    </div>
                         <div>
-                            <input name="apellido" type="text" value={order.buyer.apellido} onChange={handleInputChange} onBlur={handleBlur} required />
-                            {errors.apellido && <p className="error">{errors.apellido}</p>}
+                            <label>Correo</label>
+                            <input name="email" type="text" value={order.buyer.email} onChange={handleInputChange} required={true} placeholder='Coloca una dirección de correo válida' />
                         </div>
-                    </div>
-
-                    <div>
-                        <label>Correo</label>
-                        <input name="email" type="text" value={order.buyer.email} onChange={handleInputChange} onBlur={handleBlur} />
-                        {errors.email && <p className="error">{errors.email}</p>}
-                    </div>
-
-                    <div>
-                        <label>Repite tu correo</label>
-                        <input name="email" type="text" value={order.buyer.email} onChange={handleInputChange} onBlur={handleBlur} />
-                        {errors.email && <p className="error">{errors.email}</p>}
-
-                    </div>
-
-
                     <div>
                         <label>Teléfono</label>
-                        <input name="phone" type="number" value={order.buyer.phone} onChange={handleInputChange} onBlur={handleBlur} required />
-                        {errors.phone && <p className="error">{errors.phone}</p>}
+                        <input name="phone" type="number" value={order.buyer.phone} onChange={handleInputChange} required={true} placeholder='+54 1 23 45678900' />
                     </div>
-
-                </div>
-
-                <div>
-                    <button className="order" onClick={createOrder}>Procesar Compra</button>
+                    <input name="order" className="order" type="submit" onClick={createOrder} disabled={!botonActivo} />
                 </div>
             </div>
         </>
